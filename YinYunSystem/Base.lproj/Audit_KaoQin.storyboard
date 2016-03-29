@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="woa-e1-Pid">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <scenes>
+        <!--Audit Pending Or Hasbeen View Controller-->
+        <scene sceneID="ts2-ug-IAD">
+            <objects>
+                <viewController id="woa-e1-Pid" customClass="AuditPendingOrHasbeenViewController" customModule="YinYunSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VsR-Mm-v0u"/>
+                        <viewControllerLayoutGuide type="bottom" id="kBT-Md-TM9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nOt-EB-ezj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="USj-re-jRd">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="woa-e1-Pid" id="l3V-Th-b4q"/>
+                                    <outlet property="delegate" destination="woa-e1-Pid" id="VgK-4b-ffG"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="USj-re-jRd" firstAttribute="bottom" secondItem="kBT-Md-TM9" secondAttribute="top" id="4c7-3Q-M6y"/>
+                            <constraint firstAttribute="trailing" secondItem="USj-re-jRd" secondAttribute="trailing" id="Kjp-0p-ZBI"/>
+                            <constraint firstItem="USj-re-jRd" firstAttribute="top" secondItem="VsR-Mm-v0u" secondAttribute="bottom" id="Ott-Hl-YRx"/>
+                            <constraint firstItem="USj-re-jRd" firstAttribute="leading" secondItem="nOt-EB-ezj" secondAttribute="leading" id="b80-g5-aTW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="dAC-Br-QAt"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tv" destination="USj-re-jRd" id="N4X-2F-3Nu"/>
+                        <segue destination="MKF-YK-5Vf" kind="push" identifier="pushpending" id="mxW-ht-wOD"/>
+                        <segue destination="WJk-Se-Jp6" kind="push" identifier="pushHasBeen" id="tAA-Jb-FPu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fBs-U1-qvY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1940.2666666666667" y="1164.4000000000001"/>
+        </scene>
+        <!--Audit Pend View Controller-->
+        <scene sceneID="cOJ-lC-bcd">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NFf-d9-kes" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="MKF-YK-5Vf" customClass="AuditPendViewController" customModule="YinYunSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iZX-TM-bFH"/>
+                        <viewControllerLayoutGuide type="bottom" id="jxz-qN-9xK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wwx-Xx-0az">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aNT-xy-GK6">
+                                <rect key="frame" x="0.0" y="72" width="320" height="40"/>
+                                <color key="backgroundColor" red="0.68863865489999998" green="0.76588936460000001" blue="0.8360953283" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="4HV-GD-ebs"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pOI-bm-TO2">
+                                <rect key="frame" x="0.0" y="528" width="320" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mK5-nn-bb3">
+                                        <rect key="frame" x="179" y="3" width="133" height="33"/>
+                                        <color key="backgroundColor" red="0.23931998709999999" green="0.62021717170000001" blue="0.85848721589999999" alpha="0.85999999999999999" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="33" id="Cq2-ph-foZ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="批量通过">
+                                            <color key="titleColor" red="1" green="0.46339742249999999" blue="0.18257584839999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="batchDeleteAction:" destination="MKF-YK-5Vf" eventType="touchUpInside" id="zWc-FM-WkJ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOQ-Uo-CH6">
+                                        <rect key="frame" x="8" y="5" width="133" height="30"/>
+                                        <color key="backgroundColor" red="0.23931998709999999" green="0.62021717170000001" blue="0.85848721589999999" alpha="0.85999999999999999" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="bJo-Pw-Ztd"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="批量退回">
+                                            <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="batchReturnAction:" destination="MKF-YK-5Vf" eventType="touchUpInside" id="uSe-pS-smC"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.79246768769999998" green="0.91433869950000002" blue="0.87697770559999999" alpha="0.85999999999999999" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="dOQ-Uo-CH6" firstAttribute="leading" secondItem="pOI-bm-TO2" secondAttribute="leading" constant="8" id="1DY-ZS-lbV"/>
+                                    <constraint firstAttribute="bottom" secondItem="dOQ-Uo-CH6" secondAttribute="bottom" constant="5" id="FCW-OP-Kw0"/>
+                                    <constraint firstAttribute="trailing" secondItem="dOQ-Uo-CH6" secondAttribute="trailing" constant="179" id="H1U-Sl-F2M"/>
+                                    <constraint firstAttribute="bottom" secondItem="mK5-nn-bb3" secondAttribute="bottom" constant="4" id="LVn-3c-SCc"/>
+                                    <constraint firstAttribute="trailing" secondItem="mK5-nn-bb3" secondAttribute="trailing" constant="8" id="R4c-VK-hii"/>
+                                    <constraint firstItem="dOQ-Uo-CH6" firstAttribute="top" secondItem="pOI-bm-TO2" secondAttribute="top" constant="5" id="e1r-DK-1G0"/>
+                                    <constraint firstItem="mK5-nn-bb3" firstAttribute="leading" secondItem="pOI-bm-TO2" secondAttribute="leading" constant="179" id="r6p-g4-nlJ"/>
+                                    <constraint firstItem="mK5-nn-bb3" firstAttribute="top" secondItem="pOI-bm-TO2" secondAttribute="top" constant="3" id="s26-o7-H8g"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j5W-hR-o54">
+                                <rect key="frame" x="0.0" y="120" width="320" height="448"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="MKF-YK-5Vf" id="bt5-as-xxE"/>
+                                    <outlet property="delegate" destination="MKF-YK-5Vf" id="49v-BO-0iw"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="j5W-hR-o54" secondAttribute="bottom" id="4SE-H3-xie"/>
+                            <constraint firstItem="j5W-hR-o54" firstAttribute="top" secondItem="aNT-xy-GK6" secondAttribute="bottom" constant="8" symbolic="YES" id="8Fb-pK-q6J"/>
+                            <constraint firstAttribute="trailing" secondItem="pOI-bm-TO2" secondAttribute="trailing" id="Aa5-bn-GtJ"/>
+                            <constraint firstItem="pOI-bm-TO2" firstAttribute="trailing" secondItem="aNT-xy-GK6" secondAttribute="trailing" id="Ngr-xX-v7x"/>
+                            <constraint firstItem="j5W-hR-o54" firstAttribute="bottom" secondItem="pOI-bm-TO2" secondAttribute="bottom" id="YMg-lC-6cb"/>
+                            <constraint firstItem="pOI-bm-TO2" firstAttribute="leading" secondItem="aNT-xy-GK6" secondAttribute="leading" id="YQn-3a-dmg"/>
+                            <constraint firstItem="aNT-xy-GK6" firstAttribute="top" secondItem="iZX-TM-bFH" secondAttribute="bottom" constant="8" id="eHo-FY-uEa"/>
+                            <constraint firstItem="j5W-hR-o54" firstAttribute="leading" secondItem="pOI-bm-TO2" secondAttribute="leading" id="sIh-M6-I71"/>
+                            <constraint firstItem="aNT-xy-GK6" firstAttribute="leading" secondItem="wwx-Xx-0az" secondAttribute="leading" id="ttW-x1-eLR"/>
+                            <constraint firstItem="j5W-hR-o54" firstAttribute="trailing" secondItem="pOI-bm-TO2" secondAttribute="trailing" id="v14-UL-TN5"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="MVI-oP-8YI"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO">
+                        <color key="barTintColor" red="0.0" green="0.85848721589999999" blue="0.85848721589999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </simulatedNavigationBarMetrics>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="cusFooterView" destination="pOI-bm-TO2" id="h0V-6a-C3l"/>
+                        <outlet property="cusheaderView" destination="aNT-xy-GK6" id="YEg-LU-u82"/>
+                        <outlet property="tv" destination="j5W-hR-o54" id="cpA-GK-bHc"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2378" y="860"/>
+        </scene>
+        <!--Audit Hasbeen View Controller-->
+        <scene sceneID="jah-be-UQp">
+            <objects>
+                <viewController id="WJk-Se-Jp6" customClass="AuditHasbeenViewController" customModule="YinYunSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EFq-Y9-64s"/>
+                        <viewControllerLayoutGuide type="bottom" id="g0j-ot-lF3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2pD-M4-njk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E5B-qW-UAy">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="WJk-Se-Jp6" id="rVg-4j-GRX"/>
+                                    <outlet property="delegate" destination="WJk-Se-Jp6" id="0z7-JL-6eN"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="E5B-qW-UAy" firstAttribute="bottom" secondItem="g0j-ot-lF3" secondAttribute="top" id="Itt-2P-Bpd"/>
+                            <constraint firstAttribute="trailing" secondItem="E5B-qW-UAy" secondAttribute="trailing" id="T54-dw-3y8"/>
+                            <constraint firstItem="E5B-qW-UAy" firstAttribute="leading" secondItem="2pD-M4-njk" secondAttribute="leading" id="dFU-jh-n9L"/>
+                            <constraint firstItem="E5B-qW-UAy" firstAttribute="top" secondItem="EFq-Y9-64s" secondAttribute="bottom" id="f3u-DS-aoh"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="IYu-2p-m5g"/>
+                    <connections>
+                        <outlet property="tv" destination="E5B-qW-UAy" id="pRF-th-qj5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8sd-rO-DDZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2440" y="1472"/>
+        </scene>
+    </scenes>
+</document>

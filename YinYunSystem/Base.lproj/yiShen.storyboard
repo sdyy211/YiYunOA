@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="oxh-KZ-arf">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Yi Shen View Controller-->
+        <scene sceneID="ZC0-Ov-Nt1">
+            <objects>
+                <viewController id="oxh-KZ-arf" customClass="yiShenViewController" customModule="YinYunSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mM9-ca-bTS"/>
+                        <viewControllerLayoutGuide type="bottom" id="vya-no-267"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nGX-hL-PsA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9wb-3k-CmZ">
+                                <rect key="frame" x="0.0" y="20" width="320" height="45"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p4R-gt-xYA">
+                                        <rect key="frame" x="79" y="10" width="162" height="25"/>
+                                        <color key="backgroundColor" red="0.79246768769999998" green="0.91433869950000002" blue="0.87697770559999999" alpha="0.85999999999999999" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="全部">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="selectStypeAction:" destination="oxh-KZ-arf" eventType="touchUpInside" id="ayd-oL-OQA"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wpa-4c-t2Y">
+                                        <rect key="frame" x="0.0" y="9" width="35" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="35" id="Mei-rs-Urv"/>
+                                        </constraints>
+                                        <state key="normal" image="7"/>
+                                        <connections>
+                                            <action selector="backbtn:" destination="oxh-KZ-arf" eventType="touchUpInside" id="DrT-lA-iOw"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.47843137254901957" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="p4R-gt-xYA" firstAttribute="top" secondItem="9wb-3k-CmZ" secondAttribute="top" constant="10" id="IF9-g0-TSQ"/>
+                                    <constraint firstItem="p4R-gt-xYA" firstAttribute="centerX" secondItem="9wb-3k-CmZ" secondAttribute="centerX" id="LEZ-ql-3an"/>
+                                    <constraint firstItem="wpa-4c-t2Y" firstAttribute="leading" secondItem="9wb-3k-CmZ" secondAttribute="leading" id="P7T-A0-bqI"/>
+                                    <constraint firstItem="p4R-gt-xYA" firstAttribute="leading" secondItem="wpa-4c-t2Y" secondAttribute="trailing" constant="44" id="Pfe-5o-TLl"/>
+                                    <constraint firstAttribute="height" constant="45" id="SRt-To-Ksq"/>
+                                    <constraint firstItem="p4R-gt-xYA" firstAttribute="centerY" secondItem="9wb-3k-CmZ" secondAttribute="centerY" id="ohr-Jm-EVQ"/>
+                                    <constraint firstItem="p4R-gt-xYA" firstAttribute="centerY" secondItem="wpa-4c-t2Y" secondAttribute="centerY" id="sjW-By-J1g"/>
+                                    <constraint firstItem="wpa-4c-t2Y" firstAttribute="bottom" secondItem="9wb-3k-CmZ" secondAttribute="bottomMargin" id="z9C-F4-8zu"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="9wb-3k-CmZ" secondAttribute="trailing" id="21y-LS-Br0"/>
+                            <constraint firstItem="9wb-3k-CmZ" firstAttribute="top" secondItem="mM9-ca-bTS" secondAttribute="bottom" id="cmL-dW-KsZ"/>
+                            <constraint firstItem="9wb-3k-CmZ" firstAttribute="leading" secondItem="nGX-hL-PsA" secondAttribute="leading" id="kv0-zj-59O"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="nJ8-Qf-p9j"/>
+                    <connections>
+                        <outlet property="selectStypeBtn" destination="p4R-gt-xYA" id="E4R-eq-TvY"/>
+                        <outlet property="tabbarView" destination="9wb-3k-CmZ" id="Wfa-wU-ogP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dNd-tX-zcL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1447" y="1703"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="7" width="14" height="24"/>
+    </resources>
+</document>

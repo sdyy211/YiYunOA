@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ILX-gf-TAA">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <scenes>
+        <!--消息-->
+        <scene sceneID="2Vt-I5-744">
+            <objects>
+                <navigationController id="ILX-gf-TAA" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="消息" id="ki0-ig-99s"/>
+                    <navigationItem key="navigationItem" title="消息" id="tZa-nz-CNf"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Bkf-MH-bjD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.0" green="0.85848721589999999" blue="0.85848721589999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Xj6-IC-xlw" kind="relationship" relationship="rootViewController" id="8rF-vY-F0D"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZpZ-r8-rvn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2126.25" y="-515.49295774647885"/>
+        </scene>
+        <!--消息-->
+        <scene sceneID="LQd-wq-4da">
+            <objects>
+                <viewController id="Xj6-IC-xlw" customClass="mainViewController" customModule="YinYunSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uDQ-DA-3u3"/>
+                        <viewControllerLayoutGuide type="bottom" id="a8T-yP-IeA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Xqa-r8-u9d">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="消息" image="h0" id="zDV-7e-6vw"/>
+                    <navigationItem key="navigationItem" title="消息" id="qbQ-kE-sQ5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dIz-EX-SRX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2904.375" y="-515.49295774647885"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="h0" width="28" height="27"/>
+    </resources>
+</document>

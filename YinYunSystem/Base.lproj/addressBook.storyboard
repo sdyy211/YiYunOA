@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xph-DV-EEq">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--通讯录-->
+        <scene sceneID="r59-7o-hl9">
+            <objects>
+                <navigationController id="xph-DV-EEq" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="通讯录" id="dVd-W0-JdW"/>
+                    <navigationItem key="navigationItem" id="Eaw-Ir-YIQ"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="v6Z-eV-ljr">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.0" green="0.85848721589999999" blue="0.85848721589999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="jit-4G-Fmg" kind="relationship" relationship="rootViewController" id="8NK-4p-Qpd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lag-l5-yxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2126.25" y="167.95774647887322"/>
+        </scene>
+        <!--通讯录-->
+        <scene sceneID="KSS-Ng-mZD">
+            <objects>
+                <viewController id="jit-4G-Fmg" customClass="addressBookViewController" customModule="YinYunSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SGc-ap-7vL"/>
+                        <viewControllerLayoutGuide type="bottom" id="NUX-JP-IPx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Bta-u6-mUk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="请输入查询人员" translatesAutoresizingMaskIntoConstraints="NO" id="wnp-lN-Kzc">
+                                <rect key="frame" x="4" y="64" width="592" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="jit-4G-Fmg" id="Nr9-2c-Op0"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="tRm-VO-5Lw">
+                                <rect key="frame" x="4" y="108" width="592" height="443"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="jit-4G-Fmg" id="wlk-fd-Ud0"/>
+                                    <outlet property="delegate" destination="jit-4G-Fmg" id="P8d-4F-WUe"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NUX-JP-IPx" firstAttribute="top" secondItem="tRm-VO-5Lw" secondAttribute="bottom" id="FhC-RG-Tq2"/>
+                            <constraint firstItem="tRm-VO-5Lw" firstAttribute="top" secondItem="wnp-lN-Kzc" secondAttribute="bottom" id="H1g-HQ-LXv"/>
+                            <constraint firstItem="wnp-lN-Kzc" firstAttribute="leading" secondItem="Bta-u6-mUk" secondAttribute="leadingMargin" constant="-16" id="H6L-7r-cV9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tRm-VO-5Lw" secondAttribute="trailing" constant="-16" id="RJw-D7-CQ3"/>
+                            <constraint firstItem="tRm-VO-5Lw" firstAttribute="top" secondItem="wnp-lN-Kzc" secondAttribute="bottom" id="eGN-zL-C0c"/>
+                            <constraint firstItem="tRm-VO-5Lw" firstAttribute="leading" secondItem="Bta-u6-mUk" secondAttribute="leadingMargin" constant="-16" id="rEX-Ib-JKN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wnp-lN-Kzc" secondAttribute="trailing" constant="-16" id="rwF-bk-N38"/>
+                            <constraint firstItem="wnp-lN-Kzc" firstAttribute="top" secondItem="SGc-ap-7vL" secondAttribute="bottom" id="uVj-vh-tRq"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="通讯录" image="h4" id="LJ5-FC-3fw"/>
+                    <navigationItem key="navigationItem" title="通讯录" id="5PW-if-Cy5"/>
+                    <connections>
+                        <outlet property="mytableview" destination="tRm-VO-5Lw" id="WmL-hX-xzb"/>
+                        <outlet property="searchControl" destination="wnp-lN-Kzc" id="eqR-Bs-09v"/>
+                        <outlet property="searchDisplayController" destination="SI6-Fj-VVl" id="xK1-Kh-8uO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SKk-rR-Sak" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="SI6-Fj-VVl">
+                    <connections>
+                        <outlet property="delegate" destination="jit-4G-Fmg" id="QfY-Us-JIX"/>
+                        <outlet property="searchBar" destination="wnp-lN-Kzc" id="RgY-ks-Tch"/>
+                        <outlet property="searchContentsController" destination="jit-4G-Fmg" id="xwF-eG-MCZ"/>
+                        <outlet property="searchResultsDataSource" destination="jit-4G-Fmg" id="GCp-74-QTl"/>
+                        <outlet property="searchResultsDelegate" destination="jit-4G-Fmg" id="uyn-Qy-cEn"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="2815" y="167"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="h4" width="28" height="27"/>
+    </resources>
+</document>
