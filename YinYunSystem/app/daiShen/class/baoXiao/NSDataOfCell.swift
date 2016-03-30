@@ -20,6 +20,7 @@ class NSDataOfCell{
     var selectState = ""    //这是在没有点击批复的时候状态
     var BXID = ""
     var BSAId = ""
+    var BXS_ID = ""
     //第二层cell
     //通讯费
     var BXSID = ""

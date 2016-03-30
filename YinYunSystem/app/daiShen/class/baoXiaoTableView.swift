@@ -4,7 +4,7 @@
 //
 //  Created by Mac on 16/3/15.
 //  Copyright © 2016年 魏辉. All rights reserved.
-//"通讯费": "1DC10AAA-5074-482E-9DC4-B6E721EF8C46",
+//"通讯费": "1DC10AAA-5074-482E-9DC4-B6E721EF8C46",values
 //"差旅费": "AC624F0C-3A8E-4A54-A7EC-C2BA0BE7DFBE",
 //"市内交通费": "999107B6-4A8D-4718-9F14-2ED4C4EEB318",
 //"通用": "BE9F26FC-2D6D-44CB-ADC8-6187BBC196A9",
@@ -22,6 +22,7 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
     var flageArry = NSMutableArray()
     var dataArry = NSArray()
     var detileArry = NSMutableArray()
+    var chongDiArry = NSMutableArray()
     var rightBtn = UIButton()
     var cellH:CGFloat = 0.0
     var styleIdDic = NSDictionary()
@@ -29,8 +30,11 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
     var styleTitle = ""
     var request = HttpRequest()
     var segmentV = segmentView()
+    var showImage = showImageView()
     //这是显示退回和通过的视图
-    var buttomView : baoXiaoBottomView!
+    var buttomView = baoXiaoBottomView()
+    var downfile = downLoadFile()
+    
     var VC = UIViewController()
     var url = "/mobile/mobile/JReimbureseList"
     var detileURL = "/mobile/mobile/JReimburseseDetail"
@@ -38,6 +42,7 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
     var piFuURL = "/mobile/mobile/JShenHeReimburese"
     var rightBtnFlag = ""
     var loadFlag = ""
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -105,6 +110,8 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
             }
         }else if(loadFlag == "1"){
             let dic =  result.objectForKey("values") as! NSDictionary
+            chongDiArry = result.objectForKey("objs") as! NSMutableArray
+            print(chongDiArry)
             if(dic.allKeys.count > 0)
             {
                 let str = dic.objectForKey("sbudate") as! String
@@ -118,6 +125,8 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
                 print(jsonArry)
                 detileArry.setArray(jsonArry as [AnyObject])
                 detileArry.removeObjectAtIndex(0)
+                
+                
             }
         }else if(loadFlag == "pifu"){
             print(result)
@@ -337,6 +346,7 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
         nsdata.level = "1"
         nsdata.BXID = dic.objectForKey("BX_ID") as! String
         nsdata.BSAId = dic.objectForKey("BX_AID") as! String
+        nsdata.BXS_ID = dic.objectForKey("BXS_ID") as! String
         nsdata.styleIdBX = styleId
         if (styleId == "AC624F0C-3A8E-4A54-A7EC-C2BA0BE7DFBE")
         {
@@ -392,6 +402,7 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
             nsdata.beiZhuTY = dic.objectForKey("备注") as! String
         }else if(styleId == "F67C2ABE-62C0-40DE-BF6A-4A1046AC4F3E" || styleId == "F67C2ABE-62C0-40DE-BF1A-111046AC413E")
         {
+            print(dic.objectForKey("附件") as! String)
             //培训费  会议费
             nsdata.suoShuXiangMuPX = dic.objectForKey("项目名称") as! String
             nsdata.baoXiaoJinEPX = dic.objectForKey("报销金额") as! String
@@ -410,7 +421,7 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
             //差旅费
             let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cellCL")
             let name = ["项目名称","出发时间","出发地点","到达时间","到达地点","随行人","费用","交通工具","其他费用","票据张数","住宿费","市内交通费","稽核调整","出差天数","补助费","报销金额","冲抵"]
-            let values = ["\(nsdata.projectCL)","\(nsdata.chuFaTimeCL)","\(nsdata.chuFaLocationCL)","\(nsdata.daoDaTimeCL)","\(nsdata.daoDaLocationCl)","\(nsdata.suiXingRenCL)","\(nsdata.feiYongCl)","\(nsdata.jiaoTongGongJuCL)","\(nsdata.qiTaFeiYongCL)","\(nsdata.piaoJuZhangShuCl)","\(nsdata.zhuSuFeiCl)","\(nsdata.shiNeiJiaoTongFeiCl)","\(nsdata.jiHeTiaoZhengCL)","\(nsdata.chuChaiTianShuCl)","\(nsdata.buZhuFeiCl)","\(nsdata.baoXiaoJinECL)"]
+            let values = ["\(nsdata.projectCL)","\(nsdata.chuFaTimeCL)","\(nsdata.chuFaLocationCL)","\(nsdata.daoDaTimeCL)","\(nsdata.daoDaLocationCl)","\(nsdata.suiXingRenCL)","\(nsdata.feiYongCl)","\(nsdata.jiaoTongGongJuCL)","\(nsdata.qiTaFeiYongCL)","\(nsdata.piaoJuZhangShuCl)","\(nsdata.zhuSuFeiCl)","\(nsdata.shiNeiJiaoTongFeiCl)","\(nsdata.jiHeTiaoZhengCL)","\(nsdata.chuChaiTianShuCl)","\(nsdata.buZhuFeiCl)","\(nsdata.baoXiaoJinECL)","\(nsdata.BXS_ID)"]
             addCellLabel(name, value: values,cells:cell)
             return cell
         }else if(id == "1DC10AAA-5074-482E-9DC4-B6E721EF8C46"){
@@ -425,14 +436,14 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
             //市内交通费
             let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cellJT")
             let name = ["出发时间","出发地点","到达时间","到达地点","费用","项目名称","提交时间","备注","冲抵"]
-            let values = ["\(nsdata.chuFaTimeJT)","\(nsdata.chuFaLocationJT)","\(nsdata.daoDaTimeJT)","\(nsdata.daoDaLocationJT)","\(nsdata.feiYongJT)","\(nsdata.projectNameJT)","\(nsdata.submitTimeJT)","\(nsdata.beiZhuJT)"]
+            let values = ["\(nsdata.chuFaTimeJT)","\(nsdata.chuFaLocationJT)","\(nsdata.daoDaTimeJT)","\(nsdata.daoDaLocationJT)","\(nsdata.feiYongJT)","\(nsdata.projectNameJT)","\(nsdata.submitTimeJT)","\(nsdata.beiZhuJT)","\(nsdata.BXS_ID)"]
             addCellLabel(name, value: values,cells:cell)
             return cell
         }else if(id == "BE9F26FC-2D6D-44CB-ADC8-6187BBC196A9"){
             //通用
             let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cellTY")
             let name = ["所属项目","物品名称","物品类别","型号","价格","数量","购买日期","票据张数","报销金额","备注","冲抵"]
-            let values = ["\(nsdata.suoShuXiangMuTY)","\(nsdata.wuPinNameTY)","\(nsdata.wuPinStyleTY)","\(nsdata.xingHaoTY)","\(nsdata.jiaGeTY)","\(nsdata.numberTY)","\(nsdata.gouMaiDateTY)","\(nsdata.piaoJuZhangShuCl)","\(nsdata.baoXiaoJinETY)","\(nsdata.beiZhuTY)",""]
+            let values = ["\(nsdata.suoShuXiangMuTY)","\(nsdata.wuPinNameTY)","\(nsdata.wuPinStyleTY)","\(nsdata.xingHaoTY)","\(nsdata.jiaGeTY)","\(nsdata.numberTY)","\(nsdata.gouMaiDateTY)","\(nsdata.piaoJuZhangShuCl)","\(nsdata.baoXiaoJinETY)","\(nsdata.beiZhuTY)","\(nsdata.BXS_ID)"]
             
             addCellLabel(name, value: values,cells:cell)
             
@@ -441,7 +452,7 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
             //培训费 会议费
             let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cellPX")
             let name = ["所属项目","报销金额","报销事由","提交时间","附件","冲抵"]
-            let values = ["\(nsdata.suoShuXiangMuPX)","\(nsdata.baoXiaoJinEPX)","\(nsdata.baoXiaoShiYouPX)","\(nsdata.submitTimePX)","\(nsdata.fuJianPX)"]
+            let values = ["\(nsdata.suoShuXiangMuPX)","\(nsdata.baoXiaoJinEPX)","\(nsdata.baoXiaoShiYouPX)","\(nsdata.submitTimePX)","\(nsdata.fuJianPX)","\(nsdata.BXS_ID)"]
             addCellLabel(name, value: values,cells:cell)
             return cell
         } else{
@@ -487,20 +498,124 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
                 }
             }else {
                 
+                let view = addChongDiLabel(value.objectAtIndex(i) as! String,h:h)
+               
+                if(CGRectGetHeight(view.frame) > 50)
+                {
+                    cells.contentView.addSubview(view)
+                    h = h + CGRectGetHeight(view.frame)
+                }
+               
             }
             h = h + labelH + 5
         }
-        cellH = h
+        let yuE = UILabel()
+        yuE.frame = CGRectMake(0,h-1,CGRectGetWidth(UIScreen.mainScreen().bounds),20)
+        yuE.text = "借款余额:"
+        cells.contentView.addSubview(yuE)
+        cellH = h + CGRectGetHeight(yuE.frame) + 1
+        
         let line = UILabel()
-        line.frame = CGRectMake(0,h-1,CGRectGetWidth(UIScreen.mainScreen().bounds),1)
+        line.frame = CGRectMake(0,cellH-1,CGRectGetWidth(UIScreen.mainScreen().bounds),1)
         line.backgroundColor = UIColor.grayColor()
         cells.contentView.addSubview(line)
+    }
+    func addChongDiLabel(id:String,h:CGFloat) ->UIView
+    {
+        let labelH:CGFloat = 15.0
+        var h2:CGFloat = 0.0
+        let view = UIView()
+        
+        view.layer.cornerRadius = 10
+        view.layer.borderColor = UIColor.redColor().CGColor
+        view.layer.borderWidth = 1
+        
+        let title = UILabel()
+        title.frame = CGRectMake(0, 0,CGRectGetWidth(UIScreen.mainScreen().bounds)-20, 30)
+        title.text = "冲抵借款"
+        title.textAlignment = NSTextAlignment.Center
+        
+        view.addSubview(title)
+        h2 = CGRectGetHeight(title.frame)
+        let arr =  chongDiArry[0] as! NSArray
+        for(var i = 0; i < arr.count;i++)
+        {
+            print(arr)
+            let dic =  arr.objectAtIndex(i) as! NSDictionary
+            let bs = dic.objectForKey("BXS_ID") as! String
+            
+            if(bs == id)
+            {
+                for(var i = 0;i < 5; i++)
+                {
+                    let nameL = UILabel()
+                    nameL.frame =  CGRectMake(10,h2,100,labelH)
+                    nameL.textAlignment = NSTextAlignment.Center
+                    view.addSubview(nameL)
+                    
+                    let value = UILabel()
+                    value.frame =  CGRectMake(CGRectGetMaxX(nameL.frame),h2,CGRectGetWidth(UIScreen.mainScreen().bounds)-CGRectGetWidth(nameL.frame),labelH)
+                    view.addSubview(value)
+                    
+                    if(i == 0)
+                    {
+                        nameL.text = "借款金额"
+                        value.text = dic.objectForKey("BD_Total") as? String
+                    }else if(i == 1){
+                        nameL.text = "时间"
+                        value.text = dic.objectForKey("BD_Time") as? String
+                    }else if(i == 2){
+                        nameL.text = "项目"
+                        value.text = dic.objectForKey("XM_Name") as? String
+                    }else if(i == 3){
+                        nameL.text = "已还金额"
+                        value.text = dic.objectForKey("YiHuanJinE") as? String
+                    }else if(i == 4){
+                        nameL.text = "本次冲抵"
+                        value.text = dic.objectForKey("BC_hongDi") as? String
+                    }
+                    
+                    h2 = h2 + labelH + 2
+                }
+
+            }
+        }
+        view.frame = CGRectMake(10, h+10,CGRectGetWidth(UIScreen.mainScreen().bounds)-20,h2)
+        return view
     }
     //MARK:图片和文件下载的触发事件
     func downLoadBtnAction(button:UIButton)
     {
-        var btn =  baoXIaoDownFileBtn()
-        btn = button as! baoXIaoDownFileBtn
+        let btn = button as! baoXIaoDownFileBtn
+        let downURL = GetService + btn.url
+        //获取后缀
+        let ary = downURL.componentsSeparatedByString(".")
+        let separe = ary.last
+        //获取名字
+        let nameAry = downURL.componentsSeparatedByString("/")
+        let name = nameAry.last
+        
+        if(separe == "png"||separe == "jpg"||separe == "bmp"||separe == "jpeg"||separe == "gif")
+        {
+            //图片下载
+            let url2 = NSURL(string: downURL)
+            let image = UIImage(data: NSData(contentsOfURL: url2!)!)
+            showImage = showImageView(frame: CGRectMake(0,0,CGRectGetWidth(UIScreen.mainScreen().bounds),CGRectGetHeight(UIScreen.mainScreen().bounds)))
+            showImage.name = name!
+            showImage.imge = image!
+            let window = UIApplication.sharedApplication().keyWindow
+            window?.addSubview(showImage)
+            window?.makeKeyAndVisible()
+        }else{
+            //文件下载
+            print(downURL)
+            downfile = downLoadFile(frame:CGRectMake(0,0,CGRectGetWidth(UIScreen.mainScreen().bounds),CGRectGetHeight(UIScreen.mainScreen().bounds)))
+            downfile.url = downURL
+            let window = UIApplication.sharedApplication().keyWindow
+            window?.addSubview(downfile)
+            window?.makeKeyAndVisible()
+        }
+        
     }
     //MARK:点击rightItem 来进行显示 通过和退回的视图
     func reshframe(rightFlag:String)

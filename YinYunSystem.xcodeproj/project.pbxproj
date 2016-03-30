@@ -85,6 +85,8 @@
 		04E442EE1CAB589A001D20BA /* baoXiaoBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E442ED1CAB589A001D20BA /* baoXiaoBottomView.swift */; };
 		04E442F11CAB6D0C001D20BA /* baoXIaoDownFileBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E442EF1CAB6D0C001D20BA /* baoXIaoDownFileBtn.swift */; };
 		04E442F21CAB6D0C001D20BA /* NSDataOfCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E442F01CAB6D0C001D20BA /* NSDataOfCell.swift */; };
+		04E442F51CAB71FE001D20BA /* downLoadFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E442F41CAB71FE001D20BA /* downLoadFile.swift */; };
+		04E442F71CAB7685001D20BA /* showImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E442F61CAB7685001D20BA /* showImageView.swift */; };
 		04EBF6361C7E946A00A2E717 /* loadingAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBF6351C7E946A00A2E717 /* loadingAnimationView.swift */; };
 		04EBF6381C7E949400A2E717 /* loadingAnimationMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBF6371C7E949400A2E717 /* loadingAnimationMethod.swift */; };
 		04FB3D021C604F9300AE0787 /* fixedDetileBorrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB3CFA1C604F9300AE0787 /* fixedDetileBorrowView.swift */; };
@@ -269,6 +271,8 @@
 		04E442ED1CAB589A001D20BA /* baoXiaoBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = baoXiaoBottomView.swift; path = baoXiao/baoXiaoBottomView.swift; sourceTree = "<group>"; };
 		04E442EF1CAB6D0C001D20BA /* baoXIaoDownFileBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = baoXIaoDownFileBtn.swift; path = baoXiao/baoXIaoDownFileBtn.swift; sourceTree = "<group>"; };
 		04E442F01CAB6D0C001D20BA /* NSDataOfCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSDataOfCell.swift; path = baoXiao/NSDataOfCell.swift; sourceTree = "<group>"; };
+		04E442F41CAB71FE001D20BA /* downLoadFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = downLoadFile.swift; sourceTree = "<group>"; };
+		04E442F61CAB7685001D20BA /* showImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = showImageView.swift; sourceTree = "<group>"; };
 		04EBF6351C7E946A00A2E717 /* loadingAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loadingAnimationView.swift; sourceTree = "<group>"; };
 		04EBF6371C7E949400A2E717 /* loadingAnimationMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loadingAnimationMethod.swift; sourceTree = "<group>"; };
 		04FB3CFA1C604F9300AE0787 /* fixedDetileBorrowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fixedDetileBorrowView.swift; sourceTree = "<group>"; };
@@ -762,6 +766,15 @@
 			path = class;
 			sourceTree = "<group>";
 		};
+		04E442F31CAB71B2001D20BA /* download */ = {
+			isa = PBXGroup;
+			children = (
+				04E442F41CAB71FE001D20BA /* downLoadFile.swift */,
+				04E442F61CAB7685001D20BA /* showImageView.swift */,
+			);
+			path = download;
+			sourceTree = "<group>";
+		};
 		04EBF6341C7E944E00A2E717 /*  loadingAnimation */ = {
 			isa = PBXGroup;
 			children = (
@@ -862,6 +875,7 @@
 		984155A01C44A06A000B29F2 /* YinYunSystem */ = {
 			isa = PBXGroup;
 			children = (
+				04E442F31CAB71B2001D20BA /* download */,
 				04EBF6341C7E944E00A2E717 /*  loadingAnimation */,
 				046464DC1C76A2EE004841FF /* service */,
 				04FB3D181C60517C00AE0787 /* Framework */,
@@ -1162,6 +1176,7 @@
 				9854FB961C853493002DCBD7 /* ChaiUser.swift in Sources */,
 				0496A61A1C78337D002B0947 /* HYSViewController.swift in Sources */,
 				985A930F1C7D4ACC0061D9D0 /* AlertViews.swift in Sources */,
+				04E442F71CAB7685001D20BA /* showImageView.swift in Sources */,
 				9846BB2B1C47465A00E7DF6A /* ListTableViewCell.swift in Sources */,
 				9822E5241C7324580024E8A0 /* KQBLTableViewCell.swift in Sources */,
 				04FB3D021C604F9300AE0787 /* fixedDetileBorrowView.swift in Sources */,
@@ -1185,6 +1200,7 @@
 				98F8B1FF1C895A9A00249AAB /* BXTableViewCell.swift in Sources */,
 				0496A61B1C78337D002B0947 /* myselfMeetingRoomCell.swift in Sources */,
 				98F8B1F51C892E9900249AAB /* workPlatformVController.swift in Sources */,
+				04E442F51CAB71FE001D20BA /* downLoadFile.swift in Sources */,
 				04FB3D061C604F9300AE0787 /* fixedAssetsTableCell.swift in Sources */,
 				0496A5F61C783375002B0947 /* addressDetileView.swift in Sources */,
 				988227831C609CCB0040DB2C /* SwiftyJSON.swift in Sources */,

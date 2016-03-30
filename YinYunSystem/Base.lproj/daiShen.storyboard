@@ -49,6 +49,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mSF-RR-TIO">
                                         <rect key="frame" x="272" y="10" width="40" height="25"/>
                                         <color key="backgroundColor" red="0.79246768769999998" green="0.91433869950000002" blue="0.87697770559999999" alpha="0.85999999999999999" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="tO4-LR-sFP"/>
+                                        </constraints>
                                         <state key="normal" title="批">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>

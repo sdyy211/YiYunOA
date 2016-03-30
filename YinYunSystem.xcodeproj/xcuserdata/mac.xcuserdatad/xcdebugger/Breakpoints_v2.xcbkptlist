@@ -199,13 +199,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "YinYunSystem/app/daiShen/class/baoXiaoTableView.swift"
-            timestampString = "480996496.161921"
+            filePath = "YinYunSystem/download/downLoadFile.swift"
+            timestampString = "481014780.849127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
-            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "loadData()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -215,13 +215,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "YinYunSystem/app/daiShen/class/baoXiaoTableView.swift"
-            timestampString = "480996496.161921"
+            filePath = "YinYunSystem/download/downLoadFile.swift"
+            timestampString = "481014780.849127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "263"
-            endingLineNumber = "263"
-            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "loadData()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -231,12 +231,28 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "YinYunSystem/app/daiShen/class/baoXiaoTableView.swift"
-            timestampString = "480996344.621394"
+            filePath = "YinYunSystem/Framework/Alamofire/Alamofire.swift"
+            timestampString = "481015966.073325"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "URLRequest(_:_:headers:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YinYunSystem/app/daiShen/class/baoXiaoTableView.swift"
+            timestampString = "481019151.746666"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "didResponse(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -248,11 +264,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YinYunSystem/app/daiShen/class/baoXiaoTableView.swift"
-            timestampString = "480996345.629652"
+            timestampString = "481019139.666899"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "didResponse(_:)"
             landmarkType = "5">
          </BreakpointContent>
