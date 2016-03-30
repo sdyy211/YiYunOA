@@ -66,8 +66,6 @@
 		04C67C3C1C97B2480058C88A /* baoXiaoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C67C3A1C97B2480058C88A /* baoXiaoTableViewCell.swift */; };
 		04C67C3D1C97B2490058C88A /* baoXiaoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C67C3B1C97B2480058C88A /* baoXiaoTableViewCell.xib */; };
 		04C67C3F1C97DF5E0058C88A /* baoXiaoCellClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C67C3E1C97DF5E0058C88A /* baoXiaoCellClass.swift */; };
-		04C8A2151CA95E910018CAA8 /* baoXIaoDownFileBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C8A2141CA95E900018CAA8 /* baoXIaoDownFileBtn.swift */; };
-		04CC76441CA924AB0037B242 /* NSDataOfCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CC76431CA924AB0037B242 /* NSDataOfCell.swift */; };
 		04CD153D1C83E6B90061D34B /* JNWSpringAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CD153A1C83E6B90061D34B /* JNWSpringAnimation.m */; };
 		04CD153E1C83E6B90061D34B /* NSValue+JNWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CD153C1C83E6B90061D34B /* NSValue+JNWAdditions.m */; };
 		04D70FD01C92B825003B9B7A /* AuditDetileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D70FCB1C92B825003B9B7A /* AuditDetileTableViewCell.swift */; };
@@ -85,6 +83,8 @@
 		04E437A11C91654E0060F0AE /* yiShenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E437A01C91654E0060F0AE /* yiShenViewController.swift */; };
 		04E437A71C916EB80060F0AE /* daiShenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E437A61C916EB80060F0AE /* daiShenViewController.swift */; };
 		04E442EE1CAB589A001D20BA /* baoXiaoBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E442ED1CAB589A001D20BA /* baoXiaoBottomView.swift */; };
+		04E442F11CAB6D0C001D20BA /* baoXIaoDownFileBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E442EF1CAB6D0C001D20BA /* baoXIaoDownFileBtn.swift */; };
+		04E442F21CAB6D0C001D20BA /* NSDataOfCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E442F01CAB6D0C001D20BA /* NSDataOfCell.swift */; };
 		04EBF6361C7E946A00A2E717 /* loadingAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBF6351C7E946A00A2E717 /* loadingAnimationView.swift */; };
 		04EBF6381C7E949400A2E717 /* loadingAnimationMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EBF6371C7E949400A2E717 /* loadingAnimationMethod.swift */; };
 		04FB3D021C604F9300AE0787 /* fixedDetileBorrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FB3CFA1C604F9300AE0787 /* fixedDetileBorrowView.swift */; };
@@ -248,8 +248,6 @@
 		04C67C3A1C97B2480058C88A /* baoXiaoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = baoXiaoTableViewCell.swift; path = baoXiao/baoXiaoTableViewCell.swift; sourceTree = "<group>"; };
 		04C67C3B1C97B2480058C88A /* baoXiaoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = baoXiaoTableViewCell.xib; path = baoXiao/baoXiaoTableViewCell.xib; sourceTree = "<group>"; };
 		04C67C3E1C97DF5E0058C88A /* baoXiaoCellClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = baoXiaoCellClass.swift; path = baoXiao/baoXiaoCellClass.swift; sourceTree = "<group>"; };
-		04C8A2141CA95E900018CAA8 /* baoXIaoDownFileBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = baoXIaoDownFileBtn.swift; sourceTree = "<group>"; };
-		04CC76431CA924AB0037B242 /* NSDataOfCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDataOfCell.swift; sourceTree = "<group>"; };
 		04CD15391C83E6B90061D34B /* JNWSpringAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNWSpringAnimation.h; sourceTree = "<group>"; };
 		04CD153A1C83E6B90061D34B /* JNWSpringAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNWSpringAnimation.m; sourceTree = "<group>"; };
 		04CD153B1C83E6B90061D34B /* NSValue+JNWAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+JNWAdditions.h"; sourceTree = "<group>"; };
@@ -269,6 +267,8 @@
 		04E437A01C91654E0060F0AE /* yiShenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = yiShenViewController.swift; sourceTree = "<group>"; };
 		04E437A61C916EB80060F0AE /* daiShenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = daiShenViewController.swift; sourceTree = "<group>"; };
 		04E442ED1CAB589A001D20BA /* baoXiaoBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = baoXiaoBottomView.swift; path = baoXiao/baoXiaoBottomView.swift; sourceTree = "<group>"; };
+		04E442EF1CAB6D0C001D20BA /* baoXIaoDownFileBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = baoXIaoDownFileBtn.swift; path = baoXiao/baoXIaoDownFileBtn.swift; sourceTree = "<group>"; };
+		04E442F01CAB6D0C001D20BA /* NSDataOfCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSDataOfCell.swift; path = baoXiao/NSDataOfCell.swift; sourceTree = "<group>"; };
 		04EBF6351C7E946A00A2E717 /* loadingAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loadingAnimationView.swift; sourceTree = "<group>"; };
 		04EBF6371C7E949400A2E717 /* loadingAnimationMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loadingAnimationMethod.swift; sourceTree = "<group>"; };
 		04FB3CFA1C604F9300AE0787 /* fixedDetileBorrowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fixedDetileBorrowView.swift; sourceTree = "<group>"; };
@@ -671,6 +671,8 @@
 		04C67C391C97B2130058C88A /* baoXiao */ = {
 			isa = PBXGroup;
 			children = (
+				04E442EF1CAB6D0C001D20BA /* baoXIaoDownFileBtn.swift */,
+				04E442F01CAB6D0C001D20BA /* NSDataOfCell.swift */,
 				04C67C3A1C97B2480058C88A /* baoXiaoTableViewCell.swift */,
 				04C67C3B1C97B2480058C88A /* baoXiaoTableViewCell.xib */,
 				04C67C3E1C97DF5E0058C88A /* baoXiaoCellClass.swift */,
@@ -755,8 +757,6 @@
 				044EB3ED1C9174D0008C0BF9 /* selectStyleView.swift */,
 				044EB3EF1C925364008C0BF9 /* segmentView.swift */,
 				04C67C351C96B79B0058C88A /* myTableView.swift */,
-				04CC76431CA924AB0037B242 /* NSDataOfCell.swift */,
-				04C8A2141CA95E900018CAA8 /* baoXIaoDownFileBtn.swift */,
 				04C67C371C97A4210058C88A /* baoXiaoTableView.swift */,
 			);
 			path = class;
@@ -1136,8 +1136,8 @@
 				04D70FDB1C92B876003B9B7A /* yongZhangDetileTableViewCell.swift in Sources */,
 				0496A60F1C78337D002B0947 /* checkMeetingRoomApplyVController.swift in Sources */,
 				04FB3D2F1C60517C00AE0787 /* Request.swift in Sources */,
+				04E442F11CAB6D0C001D20BA /* baoXIaoDownFileBtn.swift in Sources */,
 				04FB3D291C60517C00AE0787 /* Alamofire.swift in Sources */,
-				04C8A2151CA95E910018CAA8 /* baoXIaoDownFileBtn.swift in Sources */,
 				04FB3D321C60517C00AE0787 /* Result.swift in Sources */,
 				048BEE5F1C79606B006C660A /* workCollectionCell.swift in Sources */,
 				9822E51C1C7311B40024E8A0 /* KQApplyTableViewController.swift in Sources */,
@@ -1172,13 +1172,13 @@
 				983194811C61EE5300900C0F /* FlowData.swift in Sources */,
 				988227261C604BCB0040DB2C /* AppDelegate.swift in Sources */,
 				04FB3D341C60517C00AE0787 /* Stream.swift in Sources */,
-				04CC76441CA924AB0037B242 /* NSDataOfCell.swift in Sources */,
 				04FB3D361C60517C00AE0787 /* Validation.swift in Sources */,
 				04C67C361C96B79B0058C88A /* myTableView.swift in Sources */,
 				98650FCE1C48DA3600DAA323 /* KQCalendarViewController.swift in Sources */,
 				046464DE1C76A2EE004841FF /* OAsySytemService.swift in Sources */,
 				04CD153E1C83E6B90061D34B /* NSValue+JNWAdditions.m in Sources */,
 				0496A61D1C78337D002B0947 /* myselfMeetRoomDetileCell.swift in Sources */,
+				04E442F21CAB6D0C001D20BA /* NSDataOfCell.swift in Sources */,
 				98650FCB1C48827B00DAA323 /* HYSApplicationViewController.swift in Sources */,
 				044A89E41C89167900AD5394 /* AuditHasbeenCell.swift in Sources */,
 				9822E5261C7327430024E8A0 /* KQBL.swift in Sources */,

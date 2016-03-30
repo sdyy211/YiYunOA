@@ -200,12 +200,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YinYunSystem/app/daiShen/class/baoXiaoTableView.swift"
-            timestampString = "480993095.328332"
+            timestampString = "480996496.161921"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "492"
-            endingLineNumber = "492"
-            landmarkName = "reshframe(_:)"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
+            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -216,12 +216,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YinYunSystem/app/daiShen/class/baoXiaoTableView.swift"
-            timestampString = "480992077.069091"
+            timestampString = "480996496.161921"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
+            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -232,12 +232,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YinYunSystem/app/daiShen/class/baoXiaoTableView.swift"
-            timestampString = "480992077.069091"
+            timestampString = "480996344.621394"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "didResponse(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -248,12 +248,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YinYunSystem/app/daiShen/class/baoXiaoTableView.swift"
-            timestampString = "480992077.069091"
+            timestampString = "480996345.629652"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
-            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "didResponse(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

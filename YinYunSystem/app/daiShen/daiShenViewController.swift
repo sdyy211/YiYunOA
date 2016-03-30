@@ -342,8 +342,10 @@ class daiShenViewController: UIViewController,UITableViewDelegate,UITableViewDat
             tv.removeFromSuperview()
             baoXiao = "1"
             let frame = CGRectMake(0,  CGRectGetMaxY(tabbarView.frame), CGRectGetWidth(self.view.frame), CGRectGetHeight(UIScreen.mainScreen().bounds)-CGRectGetMaxY(tabbarView.frame))
+           
             baoXiaoTV = baoXiaoTableView(frame:frame)
             baoXiaoTV?.rightBtn = rightItem
+            baoXiaoTV?.VC = self
             self.view.addSubview(baoXiaoTV!)
         
         }

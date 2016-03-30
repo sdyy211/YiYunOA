@@ -31,10 +31,11 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
     var segmentV = segmentView()
     //这是显示退回和通过的视图
     var buttomView : baoXiaoBottomView!
-    
+    var VC = UIViewController()
     var url = "/mobile/mobile/JReimbureseList"
     var detileURL = "/mobile/mobile/JReimburseseDetail"
     
+    var piFuURL = "/mobile/mobile/JShenHeReimburese"
     var rightBtnFlag = ""
     var loadFlag = ""
     required init?(coder aDecoder: NSCoder) {
@@ -77,6 +78,15 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
         let str = GetService + detileURL
         request.Post(str, str: parmer)
     }
+    func piFuLoadData(piflag:String,id:String)
+    {
+        loadFlag = "pifu"
+        loadingAnimationMethod.sharedInstance.startAnimation()
+        request.delegate = self
+        let parmer = "bxid=\(id)&flag=\(piflag)"
+        let str = GetService + piFuURL
+        request.Post(str, str: parmer)
+    }
     func didResponse(result: NSDictionary) {
         loadingAnimationMethod.sharedInstance.endAnimation()
         if(loadFlag == "0")
@@ -109,6 +119,21 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
                 detileArry.setArray(jsonArry as [AnyObject])
                 detileArry.removeObjectAtIndex(0)
             }
+        }else if(loadFlag == "pifu"){
+            print(result)
+            let num = result.objectForKey("flag") as! NSNumber
+            let flagindex =  "\(num)"
+            if(flagindex == "0")
+            {
+                alter("提示", message: "操作失败！")
+            }else{
+                buttomView.removeFromSuperview()
+                reshframe("0")
+                alter("提示", message: "操作成功！")
+                loadData()
+            }
+
+        
         }
     }
     override func drawRect(rect: CGRect) {
@@ -116,10 +141,12 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
     }
     //MARK:segment 点击改变的函数u
     func getSegmentDidchange(index: String) {
- 
+        reshframe("0")
         if(index != "全部")
         {
             styleId = styleIdDic.objectForKey(index) as! String
+        }else{
+            styleId = ""
         }
         panduan(index)
         loadData2()
@@ -210,7 +237,6 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
             if(rightBtnFlag == "1")
             {
                 cell.imageV.hidden = false
-//                cell.imageV.image = UIImage(named: "choosed")
             }else{
                 cell.imageV.hidden = true
             }
@@ -481,18 +507,23 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
     {
         if(rightFlag == "1")
         {
-            rightBtnFlag = rightFlag
-            rightBtn.setTitle("取消", forState: UIControlState.Normal)
-            tv.frame = CGRectMake(0,CGRectGetMaxY(segmentV.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)-CGRectGetMaxY(segmentV.frame)-40)
-            buttomView = baoXiaoBottomView()
-            buttomView.backgroundColor = UIColor.whiteColor()
-            buttomView.frame = CGRectMake(0,CGRectGetMaxY(tv.frame),CGRectGetWidth(tv.frame), 40)
-            self.addSubview(buttomView)
-            
+            if(itemArry.count > 0)
+            {
+                rightBtnFlag = rightFlag
+                rightBtn.tag = 2
+                rightBtn.setTitle("取消", forState: UIControlState.Normal)
+                tv.frame = CGRectMake(0,CGRectGetMaxY(segmentV.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)-CGRectGetMaxY(segmentV.frame)-40)
+                buttomView = baoXiaoBottomView()
+                buttomView.backgroundColor = UIColor.whiteColor()
+                buttomView.delegate = self
+                buttomView.frame = CGRectMake(0,CGRectGetMaxY(tv.frame),CGRectGetWidth(tv.frame), 40)
+                self.addSubview(buttomView)
+            }
         }else{
             rightBtnFlag = rightFlag
+            rightBtn.tag = 1
             rightBtn.setTitle("批", forState: UIControlState.Normal)
-            tv.frame = CGRectMake(0,CGRectGetMaxY(segmentV.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)-CGRectGetMaxY(segmentV.frame)+40)
+            tv.frame = CGRectMake(0,CGRectGetMaxY(segmentV.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)-CGRectGetMaxY(segmentV.frame))
             buttomView.removeFromSuperview()
         }
         tv.reloadData()
@@ -500,8 +531,43 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
     //MARK:baoXiaoBottomProtocol
     func tuiHuiAction(button: UIButton) {
         
+        piFuLoadData("0", id: getId())
     }
     func tongGuoAction(button: UIButton) {
-        
+        piFuLoadData("1", id: getId())
+    }
+    //MAKR:获取批复选中的id
+    func getId()->String
+    {
+        var kqid = ""
+        if(itemArry.count > 0)
+        {
+            for(var i = 0; i < itemArry.count; ++i)
+            {
+                let nsdata = itemArry.objectAtIndex(i) as! NSDataOfCell
+                
+                    var id = ""
+                    if(nsdata.selectFlag == "1")
+                    {
+                        //取考勤的id
+                        id = nsdata.BXID
+                        kqid = kqid+"\(id),"
+                    }
+            }
+
+        }
+        if(kqid != "")
+        {
+            kqid = (kqid as NSString).substringToIndex(kqid.lengthOfBytesUsingEncoding(NSUTF8StringEncoding)-1)
+        }
+        return kqid
+    }
+    // MARK: 弹出窗口
+    func alter(title:String,message:String)
+    {
+        let alertView =  UIAlertController.init(title:title, message:message, preferredStyle: UIAlertControllerStyle.Alert)
+        let alertViewCancelAction: UIAlertAction = UIAlertAction.init(title: "取消", style: UIAlertActionStyle.Cancel, handler: nil)
+        alertView.addAction(alertViewCancelAction)
+        VC.presentViewController(alertView, animated:true , completion: nil)
     }
 }
