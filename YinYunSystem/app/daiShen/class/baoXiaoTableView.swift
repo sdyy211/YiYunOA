@@ -15,7 +15,7 @@
 
 import UIKit
 
-class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segmentProtocol,HttpProtocol{
+class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segmentProtocol,HttpProtocol,baoXiaoBottomProtocol{
 
     var tv = UITableView()
     var itemArry = NSMutableArray()
@@ -29,6 +29,9 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
     var styleTitle = ""
     var request = HttpRequest()
     var segmentV = segmentView()
+    //这是显示退回和通过的视图
+    var buttomView : baoXiaoBottomView!
+    
     var url = "/mobile/mobile/JReimbureseList"
     var detileURL = "/mobile/mobile/JReimburseseDetail"
     
@@ -233,9 +236,17 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
         nsdata = itemArry.objectAtIndex(indexPath.row) as! NSDataOfCell
         if(rightBtnFlag == "1")
         {
-            nsdata.selectFlag = "1"
+            //这是在右上角按钮的编辑状态  
+            if(nsdata.selectFlag == "0")
+            {
+                nsdata.selectFlag = "1"
+            }else{
+                nsdata.selectFlag = "0"
+            }
             itemArry.replaceObjectAtIndex(indexPath.row, withObject: nsdata)
+            tv.reloadData()
         }else{
+           
             if(nsdata.level == "0")
             {
                 
@@ -459,23 +470,38 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
         line.backgroundColor = UIColor.grayColor()
         cells.contentView.addSubview(line)
     }
+    //MARK:图片和文件下载的触发事件
     func downLoadBtnAction(button:UIButton)
     {
         var btn =  baoXIaoDownFileBtn()
         btn = button as! baoXIaoDownFileBtn
     }
-
+    //MARK:点击rightItem 来进行显示 通过和退回的视图
     func reshframe(rightFlag:String)
     {
         if(rightFlag == "1")
         {
             rightBtnFlag = rightFlag
             rightBtn.setTitle("取消", forState: UIControlState.Normal)
+            tv.frame = CGRectMake(0,CGRectGetMaxY(segmentV.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)-CGRectGetMaxY(segmentV.frame)-40)
+            buttomView = baoXiaoBottomView()
+            buttomView.backgroundColor = UIColor.whiteColor()
+            buttomView.frame = CGRectMake(0,CGRectGetMaxY(tv.frame),CGRectGetWidth(tv.frame), 40)
+            self.addSubview(buttomView)
             
         }else{
             rightBtnFlag = rightFlag
             rightBtn.setTitle("批", forState: UIControlState.Normal)
+            tv.frame = CGRectMake(0,CGRectGetMaxY(segmentV.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)-CGRectGetMaxY(segmentV.frame)+40)
+            buttomView.removeFromSuperview()
         }
         tv.reloadData()
+    }
+    //MARK:baoXiaoBottomProtocol
+    func tuiHuiAction(button: UIButton) {
+        
+    }
+    func tongGuoAction(button: UIButton) {
+        
     }
 }
