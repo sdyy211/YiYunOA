@@ -1,26 +1,26 @@
 //
-//  showImageView.swift
+//  openDownloadFile.swift
 //  YinYunSystem
 //
-//  Created by Mac on 16/3/30.
+//  Created by Mac on 16/3/31.
 //  Copyright © 2016年 魏辉. All rights reserved.
 //
 
 import UIKit
 
-class showImageView: UIView,UIScrollViewDelegate{
+class openDownloadFile: UIView {
 
-    var imge = UIImage()
-    var imgeV = UIImageView()
     
-    var name = ""
-    var url = ""
-    var lab = UILabel()
+    var web = UIWebView()
     var topView = UIView()
-    var myscroll = UIScrollView()
+    var path = ""
+    var name = ""
+    var lab = UILabel()
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.orangeColor()
+       
+        topView = UIView()
+        
         topView = UIView()
         topView.frame = CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen().bounds),60)
         topView.backgroundColor = UIColor.blackColor()
@@ -40,6 +40,7 @@ class showImageView: UIView,UIScrollViewDelegate{
         
         
     }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -48,24 +49,29 @@ class showImageView: UIView,UIScrollViewDelegate{
         self.removeFromSuperview()
     }
     override func drawRect(rect: CGRect) {
-        // Drawing code
-        lab.text = name
         
-        myscroll = UIScrollView()
-        myscroll.delegate = self
-        myscroll.frame = CGRectMake(0, CGRectGetMaxY(topView.frame),CGRectGetWidth(UIScreen.mainScreen().bounds),CGRectGetHeight(UIScreen.mainScreen().bounds) - CGRectGetMaxY(topView.frame))
-        myscroll.contentSize = imgeV.frame.size
-        myscroll.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
-        myscroll.maximumZoomScale = 5.0
-        myscroll.minimumZoomScale = 1.0
-        self.addSubview(myscroll)
         
-        imgeV = UIImageView(frame: CGRectMake(20,50,CGRectGetWidth(myscroll.frame)-40,CGRectGetHeight(myscroll.frame)-100))
-        imgeV.image = imge
-        myscroll.addSubview(imgeV)
+        web = UIWebView()
+        web.frame = CGRectMake(0,CGRectGetMaxY(topView.frame),CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds)-CGRectGetHeight(topView.frame))
+        web.sizeToFit()
+        self.addSubview(web)
+        
+        path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0]
+        
+        let fileManager = NSFileManager()
+        let arry: NSArray = try! fileManager.contentsOfDirectoryAtPath(path)
+        for filename in arry
+        {
+            if(filename as! String == name)
+            {
+                lab.text = name
+                let url = NSURL(fileURLWithPath: path + "/" + name)
+                web.loadRequest(NSURLRequest(URL: url))
+            }
+        }
+       
+        
     }
-    //MARK: scrollViewdelegate
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        return imgeV
-    }
+
+
 }

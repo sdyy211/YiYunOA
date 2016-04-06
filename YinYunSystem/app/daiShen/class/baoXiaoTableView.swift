@@ -15,7 +15,7 @@
 
 import UIKit
 
-class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segmentProtocol,HttpProtocol,baoXiaoBottomProtocol{
+class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segmentProtocol,HttpProtocol,baoXiaoBottomProtocol,downLoadProtocol{
 
     var tv = UITableView()
     var itemArry = NSMutableArray()
@@ -34,7 +34,7 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
     //这是显示退回和通过的视图
     var buttomView = baoXiaoBottomView()
     var downfile = downLoadFile()
-    
+    var openfile = openDownloadFile()
     var VC = UIViewController()
     var url = "/mobile/mobile/JReimbureseList"
     var detileURL = "/mobile/mobile/JReimburseseDetail"
@@ -290,16 +290,22 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
                     nsdata.selectState = "1"
                     itemArry.replaceObjectAtIndex(indexPath.row, withObject: nsdata)
                     
+                    //获取点击的cell 中有多少二级菜单以及冲抵总金额
+                    let data = jiSuanChongDIYue(nsdata.BXID, indexpath: indexPath)
+                    let index = data.objectForKey("index") as! Int
+                    let chongDi = data.objectForKey("chongDi")  as! float_t
+                    
+                    let chongDiZongYuE = float_t(nsdata.zongFeiYong)! - chongDi
                     
                     for dic in detileArry
                     {
                         if(dic.objectForKey("BX_ID") as! String == nsdata.BXID)
                         {
-                            print(nsdata.style)
                             let str = nsdata.style
                             
                             var nsdata2 = NSDataOfCell()
-                            nsdata2 = chaRuShuJu(dic as! NSDictionary,styleName:str)
+                            nsdata2 = chaRuShuJu(dic as! NSDictionary,styleName:str,index: index, chongDi: "\(chongDiZongYuE)")
+                            
                             itemArry.insertObject(nsdata2, atIndex: indexPath.row+1)
                         }
                     }
@@ -338,8 +344,45 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
         }
         
     }
+    func jiSuanChongDIYue(id:String,indexpath:NSIndexPath) -> NSDictionary
+    {
+        var index = 0
+        var chongDJinE:float_t = 0
+        for dic in detileArry
+        {
+            if(dic.objectForKey("BX_ID") as! String == id)
+            {
+                //计算第一层的cell 下面有几个二级cell
+                index += 1
+                
+                let idIndex = dic.objectForKey("BXS_ID") as! String
+                let arr =  chongDiArry[0] as! NSArray
+                for(var i = 0; i < arr.count;i++)
+                {
+                    let chongDi =  arr.objectAtIndex(i) as! NSDictionary
+                    let bs = chongDi.objectForKey("BXS_ID") as! String
+                    if(bs == idIndex)
+                    {
+                       
+                         let jintE = chongDi.objectForKey("BC_hongDi") as? String
+                        print(jintE!)
+                        if(jintE != nil)
+                        {
+                            chongDJinE += float_t(jintE!)!
+                        }
+                    }
+                }
+
+                
+            }
+        }
+        
+        index =  index + indexpath.row
+        let data = ["index":index,"chongDi":chongDJinE]
+        return data
+    }
     //插入数据的方法
-    func chaRuShuJu(dic:NSDictionary,styleName:String) -> NSDataOfCell
+    func chaRuShuJu(dic:NSDictionary,styleName:String,index:Int,chongDi:String) -> NSDataOfCell
     {
         styleId = styleIdDic.objectForKey(styleName) as!String
         let nsdata = NSDataOfCell()
@@ -348,6 +391,8 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
         nsdata.BSAId = dic.objectForKey("BX_AID") as! String
         nsdata.BXS_ID = dic.objectForKey("BXS_ID") as! String
         nsdata.styleIdBX = styleId
+        nsdata.index = index
+        nsdata.zongChongDiYuE = chongDi
         if (styleId == "AC624F0C-3A8E-4A54-A7EC-C2BA0BE7DFBE")
         {
             //差旅费
@@ -422,14 +467,26 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
             let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cellCL")
             let name = ["项目名称","出发时间","出发地点","到达时间","到达地点","随行人","费用","交通工具","其他费用","票据张数","住宿费","市内交通费","稽核调整","出差天数","补助费","报销金额","冲抵"]
             let values = ["\(nsdata.projectCL)","\(nsdata.chuFaTimeCL)","\(nsdata.chuFaLocationCL)","\(nsdata.daoDaTimeCL)","\(nsdata.daoDaLocationCl)","\(nsdata.suiXingRenCL)","\(nsdata.feiYongCl)","\(nsdata.jiaoTongGongJuCL)","\(nsdata.qiTaFeiYongCL)","\(nsdata.piaoJuZhangShuCl)","\(nsdata.zhuSuFeiCl)","\(nsdata.shiNeiJiaoTongFeiCl)","\(nsdata.jiHeTiaoZhengCL)","\(nsdata.chuChaiTianShuCl)","\(nsdata.buZhuFeiCl)","\(nsdata.baoXiaoJinECL)","\(nsdata.BXS_ID)"]
-            addCellLabel(name, value: values,cells:cell)
+            
+            var index = ""
+            if(nsdata.index == indexpath.row)
+            {
+                index = "1"
+            }
+            addCellLabel(name, value: values,cells:cell, chongDiYuE:nsdata.zongChongDiYuE, indexflag: index)
             return cell
         }else if(id == "1DC10AAA-5074-482E-9DC4-B6E721EF8C46"){
             //通讯费
             let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cellTX")
             let name = ["账单月份","金额","实报金额","发票编号","备注","报销比例","报销限额","电子版"]
             let values = ["\(nsdata.zhangDanMonthTX)","\(nsdata.jinETX)","\(nsdata.shiBaoJinETX)","\(nsdata.faPiaoBianHaoTX)","\(nsdata.beiZhuTX)","\(nsdata.baoXiaoBiLiTX)","\(nsdata.baoXiaoXianETX)","\(nsdata.dianZiBanTX)"]
-            addCellLabel(name, value: values,cells:cell)
+            
+            var index = ""
+            if(nsdata.index == indexpath.row)
+            {
+                index = "1"
+            }
+            addCellLabel(name, value: values,cells:cell, chongDiYuE:nsdata.zongChongDiYuE, indexflag: index)
             return cell
         
         }else if(id == "999107B6-4A8D-4718-9F14-2ED4C4EEB318"){
@@ -437,7 +494,13 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
             let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cellJT")
             let name = ["出发时间","出发地点","到达时间","到达地点","费用","项目名称","提交时间","备注","冲抵"]
             let values = ["\(nsdata.chuFaTimeJT)","\(nsdata.chuFaLocationJT)","\(nsdata.daoDaTimeJT)","\(nsdata.daoDaLocationJT)","\(nsdata.feiYongJT)","\(nsdata.projectNameJT)","\(nsdata.submitTimeJT)","\(nsdata.beiZhuJT)","\(nsdata.BXS_ID)"]
-            addCellLabel(name, value: values,cells:cell)
+            
+            var index = ""
+            if(nsdata.index == indexpath.row)
+            {
+                index = "1"
+            }
+            addCellLabel(name, value: values,cells:cell, chongDiYuE:nsdata.zongChongDiYuE, indexflag: index)
             return cell
         }else if(id == "BE9F26FC-2D6D-44CB-ADC8-6187BBC196A9"){
             //通用
@@ -445,7 +508,12 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
             let name = ["所属项目","物品名称","物品类别","型号","价格","数量","购买日期","票据张数","报销金额","备注","冲抵"]
             let values = ["\(nsdata.suoShuXiangMuTY)","\(nsdata.wuPinNameTY)","\(nsdata.wuPinStyleTY)","\(nsdata.xingHaoTY)","\(nsdata.jiaGeTY)","\(nsdata.numberTY)","\(nsdata.gouMaiDateTY)","\(nsdata.piaoJuZhangShuCl)","\(nsdata.baoXiaoJinETY)","\(nsdata.beiZhuTY)","\(nsdata.BXS_ID)"]
             
-            addCellLabel(name, value: values,cells:cell)
+            var index = ""
+            if(nsdata.index == indexpath.row)
+            {
+                index = "1"
+            }
+            addCellLabel(name, value: values,cells:cell, chongDiYuE:nsdata.zongChongDiYuE, indexflag: index)
             
             return cell
         }else if(id == "F67C2ABE-62C0-40DE-BF6A-4A1046AC4F3E" || id == "F67C2ABE-62C0-40DE-BF1A-111046AC413E"){
@@ -453,7 +521,13 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
             let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cellPX")
             let name = ["所属项目","报销金额","报销事由","提交时间","附件","冲抵"]
             let values = ["\(nsdata.suoShuXiangMuPX)","\(nsdata.baoXiaoJinEPX)","\(nsdata.baoXiaoShiYouPX)","\(nsdata.submitTimePX)","\(nsdata.fuJianPX)","\(nsdata.BXS_ID)"]
-            addCellLabel(name, value: values,cells:cell)
+            
+            var index = ""
+            if(nsdata.index == indexpath.row)
+            {
+                index = "1"
+            }
+            addCellLabel(name, value: values,cells:cell, chongDiYuE:nsdata.zongChongDiYuE, indexflag: index)
             return cell
         } else{
             let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell3")
@@ -462,7 +536,7 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
         }
     }
     //添加二级cell的label
-    func addCellLabel(name:NSArray,value:NSArray,cells:UITableViewCell)
+    func addCellLabel(name:NSArray,value:NSArray,cells:UITableViewCell,chongDiYuE:String,indexflag:String)
     {
         
         var h:CGFloat = 0.0
@@ -504,17 +578,29 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
                 {
                     cells.contentView.addSubview(view)
                     h = h + CGRectGetHeight(view.frame)
+                    
+                    let yuE = UILabel()
+                    yuE.frame = CGRectMake(0,h+20,CGRectGetWidth(UIScreen.mainScreen().bounds),20)
+                    yuE.textColor = UIColor.redColor()
+                    
+                    if(indexflag == "1")
+                    {
+                        yuE.text = "借款余额:" + chongDiYuE
+                        cells.contentView.addSubview(yuE)
+                        h = h + CGRectGetHeight(yuE.frame) + 1
+                    }else{
+                        h = h + 1
+                    }
+
+                }else{
+                 h = h - 15
                 }
                
             }
             h = h + labelH + 5
         }
-        let yuE = UILabel()
-        yuE.frame = CGRectMake(0,h-1,CGRectGetWidth(UIScreen.mainScreen().bounds),20)
-        yuE.text = "借款余额:"
-        cells.contentView.addSubview(yuE)
-        cellH = h + CGRectGetHeight(yuE.frame) + 1
-        
+
+        cellH = h
         let line = UILabel()
         line.frame = CGRectMake(0,cellH-1,CGRectGetWidth(UIScreen.mainScreen().bounds),1)
         line.backgroundColor = UIColor.grayColor()
@@ -527,7 +613,7 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
         let view = UIView()
         
         view.layer.cornerRadius = 10
-        view.layer.borderColor = UIColor.redColor().CGColor
+        view.layer.borderColor = UIColor.greenColor().CGColor
         view.layer.borderWidth = 1
         
         let title = UILabel()
@@ -595,7 +681,7 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
         let nameAry = downURL.componentsSeparatedByString("/")
         let name = nameAry.last
         
-        if(separe == "png"||separe == "jpg"||separe == "bmp"||separe == "jpeg"||separe == "gif")
+        if(separe == "png"||separe == "jpg"||separe == "bmp"||separe == "jpeg"||separe == "gif"||separe == "PNG"||separe == "JPG"||separe == "BMP"||separe == "JPEG"||separe == "GIF")
         {
             //图片下载
             let url2 = NSURL(string: downURL)
@@ -611,11 +697,23 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
             print(downURL)
             downfile = downLoadFile(frame:CGRectMake(0,0,CGRectGetWidth(UIScreen.mainScreen().bounds),CGRectGetHeight(UIScreen.mainScreen().bounds)))
             downfile.url = downURL
+            downfile.name = name!
+            downfile.delegate = self
+            downfile.VC = VC
             let window = UIApplication.sharedApplication().keyWindow
             window?.addSubview(downfile)
             window?.makeKeyAndVisible()
         }
         
+    }
+    //MARK:downLoadProtocol
+    func openDownLoadFile(name: String)
+    {
+        openfile = openDownloadFile(frame:CGRectMake(0,0,CGRectGetWidth(UIScreen.mainScreen().bounds),CGRectGetHeight(UIScreen.mainScreen().bounds)))
+        openfile.name = name
+        let window = UIApplication.sharedApplication().keyWindow
+        window?.addSubview(openfile)
+        window?.makeKeyAndVisible()
     }
     //MARK:点击rightItem 来进行显示 通过和退回的视图
     func reshframe(rightFlag:String)

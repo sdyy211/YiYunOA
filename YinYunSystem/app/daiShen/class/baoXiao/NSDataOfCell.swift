@@ -21,6 +21,8 @@ class NSDataOfCell{
     var BXID = ""
     var BSAId = ""
     var BXS_ID = ""
+    var zongChongDiYuE = ""    //冲抵余额
+    var index = 0           //显示在这个cell中显示冲抵余额
     //第二层cell
     //通讯费
     var BXSID = ""
