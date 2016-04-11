@@ -17,21 +17,22 @@ class yiShenViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     
     var color = UIColor(colorLiteralRed: 238.0/255.0, green: 247.0/255.0, blue: 244.0/255.0, alpha: 1)
-    var request = HttpRequest()
+    var request2 = HttpRequest()
     var tv = UITableView()
     var itemArry = NSArray()
     var selectViewItemArry = NSMutableArray()
     var selectView = selectStyleView()
-    var styleStr = "全部"
-    var flag2 = ""
+    var styleStr = "考勤"
     var permissionURL = "/Mobile/Mobile/right"
     var kaoQinURL = "/KaoQinCheck/JDaiShenList"
     var yongZhangURL = "/mobile/mobile/JGetCachetCheckList"
     var detileView = yongZhangDetileView()
+    var baoXiao = ""
+    var segmentV = segmentView()
+    var baoXiaoTV:baoXiaoTableView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        request.delegate = self
         let cusView = UIView()
         cusView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame),20)
         cusView.backgroundColor = UIColor(red: 0.0/255.0, green:
@@ -48,6 +49,8 @@ class yiShenViewController: UIViewController,UITableViewDelegate,UITableViewData
         self.view.addSubview(tv)
         
         permissionLoadData()
+        
+        kaoQinLoadData()
     }
     @IBAction func selectStypeAction(sender: AnyObject) {
         //点击全部按钮显示所有类型的列表
@@ -81,28 +84,64 @@ class yiShenViewController: UIViewController,UITableViewDelegate,UITableViewData
         selectStypeBtn.selected = false
         selectStypeBtn.setTitle(style, forState: UIControlState.Normal)
         styleStr = style
-        if(style == "全部")
-        {
-          
-        }else if(style == "考勤"){
+        if(style == "考勤"){
+            baoXiaoTV?.removeFromSuperview()
             kaoQinLoadData()
         }else if(style == "用章"){
+            baoXiaoTV?.removeFromSuperview()
             yongZhangLoadData()
             
         }else if(style == "报销"){
-        
+            segmentV.removeFromSuperview()
+            tv.removeFromSuperview()
+            let frame = CGRectMake(0,  CGRectGetMaxY(tabbarView.frame), CGRectGetWidth(self.view.frame), CGRectGetHeight(UIScreen.mainScreen().bounds)-CGRectGetMaxY(tabbarView.frame))
+            
+            baoXiaoTV = baoXiaoTableView(frame:frame)
+            baoXiaoTV?.VC = self
+            baoXiaoTV?.loadStyleFlag = "1"
+            self.view.addSubview(baoXiaoTV!)
         }
     }
     //MARK:全部请求方法
     func permissionLoadData()
     {
         
-        flag2 = "permission"
-        loadingAnimationMethod.sharedInstance.startAnimation()
-        request.delegate = self
         let par = ["":""]
         let str = GetService + permissionURL
-        request.Get(str, parameters: par)
+        
+        request(.GET, str, parameters: par, encoding: ParameterEncoding.URLEncodedInURL, headers: nil).responseJSON { (response) -> Void in
+            guard let _ = response.response else{
+                return
+            }
+            if(response.result.value != nil)
+            {
+                let ary =  response.result.value!.objectForKey("dt") as? NSArray
+                
+                //考勤审批列表 报销审批列表
+                for(var i = 0;i < ary?.count ;i++)
+                {
+                    let dic =  ary?.objectAtIndex(i) as! NSDictionary
+                    let name = dic.objectForKey("Menu_Name") as? String
+                    if(name == "考勤审批列表")
+                    {
+                        self.selectViewItemArry.addObject("考勤")
+                    }else if(name == "报销审批列表"){
+                        self.selectViewItemArry.addObject("报销")
+                    }else if(name == "用章审批列表"){
+                        self.selectViewItemArry.addObject("用章")
+                    }else if(name == "借还款审核列表"){
+                        self.selectViewItemArry.addObject("借还款")
+                    }else if(name == "云资源审核列表"){
+                        self.selectViewItemArry.addObject("云资源")
+                    }else if(name == "项目审核"){
+                        self.selectViewItemArry.addObject("项目")
+                    }else if(name == "合同审核列表"){
+                        self.selectViewItemArry.addObject("合同")
+                    }
+                }
+
+            }
+        }
     }
     func kaoQinLoadData()
     {
@@ -110,54 +149,21 @@ class yiShenViewController: UIViewController,UITableViewDelegate,UITableViewData
         itemArry = []
         let bodyStr = NSString(format:"page=1&rows=100000&lx=1&Name=")
         let str = GetService + kaoQinURL
-        request.delegate = self
-        request.Post(str, str: bodyStr as String)
+        request2.delegate = self
+        request2.Post(str, str: bodyStr as String)
     }
     func yongZhangLoadData()
     {
         loadingAnimationMethod.sharedInstance.startAnimation()
-        request.delegate = self
+        request2.delegate = self
         let param = ["zt":"-1"]
-        request.Get(GetService + yongZhangURL, parameters: param)
+        request2.Get(GetService + yongZhangURL, parameters: param)
     }
     func didResponse(result: NSDictionary) {
         loadingAnimationMethod.sharedInstance.endAnimation()
         
-        if(flag2 == "permission")
-        {
-            flag2 = ""
-            let ary =  result.objectForKey("dt") as? NSArray
-            
-            //考勤审批列表 报销审批列表
-            for(var i = 0;i < ary?.count ;i++)
-            {
-                let dic =  ary?.objectAtIndex(i) as! NSDictionary
-                let name = dic.objectForKey("Menu_Name") as? String
-                if(name == "考勤审批列表")
-                {
-                    selectViewItemArry.addObject("考勤")
-                }else if(name == "报销审批列表"){
-                    selectViewItemArry.addObject("报销")
-                }else if(name == "用章审批列表"){
-                    selectViewItemArry.addObject("用章")
-                }else if(name == "借还款审核列表"){
-                    selectViewItemArry.addObject("借还款")
-                }else if(name == "云资源审核列表"){
-                    selectViewItemArry.addObject("云资源")
-                }else if(name == "项目审核"){
-                    selectViewItemArry.addObject("项目")
-                }else if(name == "合同审核列表"){
-                    selectViewItemArry.addObject("合同")
-                }
-            }
-            
-        }
-        
         itemArry = []
-        if(styleStr == "全部")
-        {
-            
-        }else if(styleStr == "考勤"){
+       if(styleStr == "考勤"){
             itemArry = (result.objectForKey("rows") as? NSMutableArray)!
             tv.reloadData()
 

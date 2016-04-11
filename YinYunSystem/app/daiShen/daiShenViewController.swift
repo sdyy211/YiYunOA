@@ -16,7 +16,7 @@ class daiShenViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     @IBOutlet weak var rightItem: UIButton!
     var color = UIColor(colorLiteralRed: 238.0/255.0, green: 247.0/255.0, blue: 244.0/255.0, alpha: 1)
-    var  selectStyle = ""
+    var  selectStyle = "考勤"
     var tv = UITableView()
     var itemArry = NSMutableArray()
     var selectViewItemArry = NSMutableArray()
@@ -25,11 +25,10 @@ class daiShenViewController: UIViewController,UITableViewDelegate,UITableViewDat
     var selectView = selectStyleView()
     var yongzhangDetileView = yongZhangDetileView()
     var segmentV = segmentView()
-    var request = HttpRequest()
+    var request2 = HttpRequest()
     var baoXiaoTV:baoXiaoTableView?
     var baoXiao = ""
     var flag = "0"
-    var flag2 = ""
     var permissionURL = "/Mobile/Mobile/right"
     
     var kaoqinURL = "/KaoQinCheck/JDaiShenList"
@@ -49,7 +48,7 @@ class daiShenViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         selectStyleBtn.selected = false
         rightItem.tag = 1
-        request.delegate = self
+        request2.delegate = self
         self.navigationController?.navigationBar.hidden = true
         tv.frame = CGRectMake(0, CGRectGetMaxY(tabbarView.frame), CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-CGRectGetMaxY(tabbarView.frame))
         tv.delegate = self
@@ -58,6 +57,16 @@ class daiShenViewController: UIViewController,UITableViewDelegate,UITableViewDat
         self.view.addSubview(tv)
         
         permissionLoadData()
+        
+        segmentV = segmentView()
+        segmentV.segmentArray = ["公出","调休","加班","请假","补录考勤"]
+        segmentV.delegate = self
+        segmentV.frame = CGRectMake(0,CGRectGetMaxY(tabbarView.frame),CGRectGetWidth(self.view.frame),40)
+        self.view.addSubview(segmentV)
+        tv.frame = CGRectMake(0, CGRectGetMaxY(segmentV.frame), CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)-CGRectGetMaxY(segmentV.frame))
+        self.view.addSubview(tv)
+        KaoQinLoadData()
+
     }
     // MARK: rightItem 点击事件
     @IBAction func rightItemAction(sender: AnyObject) {
@@ -310,17 +319,8 @@ class daiShenViewController: UIViewController,UITableViewDelegate,UITableViewDat
         selectStyleBtn.selected = false
         selectStyleBtn.setTitle(style, forState: UIControlState.Normal)
         selectStyle = style
-        if(style == "全部")
-        {
-            segmentV.removeFromSuperview()
-        
-            tv.removeFromSuperview()
-            tv.frame = CGRectMake(0, CGRectGetMaxY(tabbarView.frame), CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-CGRectGetMaxY(tabbarView.frame))
-            self.view.addSubview(tv)
-            AllLoadData()
-        }else if(style == "考勤"){
-//            baoXiaoTV!.removeFromSuperview()
-            
+        if(style == "考勤"){
+            baoXiaoTV!.removeFromSuperview()
             segmentV.removeFromSuperview()
             tv.removeFromSuperview()
             segmentV = segmentView()
@@ -332,6 +332,7 @@ class daiShenViewController: UIViewController,UITableViewDelegate,UITableViewDat
             self.view.addSubview(tv)
             KaoQinLoadData()
         }else if(style == "用章"){
+            baoXiaoTV!.removeFromSuperview()
             segmentV.removeFromSuperview()
             tv.removeFromSuperview()
             tv.frame = CGRectMake(0, CGRectGetMaxY(tabbarView.frame), CGRectGetWidth(self.view.frame),CGRectGetHeight(self.view.frame)-CGRectGetMaxY(tabbarView.frame))
@@ -353,18 +354,43 @@ class daiShenViewController: UIViewController,UITableViewDelegate,UITableViewDat
     //MARK:全部请求
     func permissionLoadData()
     {
-        flag2 = "permission"
-        loadingAnimationMethod.sharedInstance.startAnimation()
-        request.delegate = self
         let par = ["":""]
         let str = GetService + permissionURL
-        request.Get(str, parameters: par)
-    }
-    func AllLoadData()
-    {
-        flag = "0"
-        itemArry.removeAllObjects()
-        tv.reloadData()
+        
+        request(.GET, str, parameters: par, encoding: ParameterEncoding.URLEncodedInURL, headers: nil).responseJSON { (response) -> Void in
+            guard let _ = response.response else{
+                return
+            }
+            if(response.result.value != nil)
+            {
+                let ary =  response.result.value!.objectForKey("dt") as? NSArray
+                
+                //考勤审批列表 报销审批列表
+                for(var i = 0;i < ary?.count ;i++)
+                {
+                    let dic =  ary?.objectAtIndex(i) as! NSDictionary
+                    let name = dic.objectForKey("Menu_Name") as? String
+                    if(name == "考勤审批列表")
+                    {
+                        self.selectViewItemArry.addObject("考勤")
+                    }else if(name == "报销审批列表"){
+                        self.selectViewItemArry.addObject("报销")
+                    }else if(name == "用章审批列表"){
+                        self.selectViewItemArry.addObject("用章")
+                    }else if(name == "借还款审核列表"){
+                        self.selectViewItemArry.addObject("借还款")
+                    }else if(name == "云资源审核列表"){
+                        self.selectViewItemArry.addObject("云资源")
+                    }else if(name == "项目审核"){
+                        self.selectViewItemArry.addObject("项目")
+                    }else if(name == "合同审核列表"){
+                        self.selectViewItemArry.addObject("合同")
+                    }
+                }
+                
+            }
+        }
+
     }
     func KaoQinLoadData()
     {
@@ -374,7 +400,7 @@ class daiShenViewController: UIViewController,UITableViewDelegate,UITableViewDat
         let bodyStr = NSString(format:"page=1&rows=100000&lx=0&Name=")
         let str = GetService + kaoqinURL
         
-        request.Post(str, str: bodyStr as String)
+        request2.Post(str, str: bodyStr as String)
     }
     func YongZhangLoadData()
     {
@@ -383,7 +409,7 @@ class daiShenViewController: UIViewController,UITableViewDelegate,UITableViewDat
         itemArry.removeAllObjects()
         loadingAnimationMethod.sharedInstance.startAnimation()
         let param = ["zt":"2"]
-        request.Get(GetService + yongZhangURL, parameters: param)
+        request2.Get(GetService + yongZhangURL, parameters: param)
 
     }
    
@@ -402,8 +428,8 @@ class daiShenViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         let bodyStr = NSString(format:"type=\(type)&kqid=\(kqid)")
         let str = GetService + KaoqinPiFuURL
-        request.delegate = self
-        request.Post(str, str: bodyStr as String)
+        request2.delegate = self
+        request2.Post(str, str: bodyStr as String)
     }
     // 用章详情页面的 退回，通过按钮的请求方法
     func loadData_exitAction(id:String)
@@ -412,48 +438,19 @@ class daiShenViewController: UIViewController,UITableViewDelegate,UITableViewDat
         loadingAnimationMethod.sharedInstance.startAnimation()
         
         let param = ["flag":"－1","bid":id]
-        request.Get(GetService + yongZhangPiFuURL, parameters: param)
+        request2.Get(GetService + yongZhangPiFuURL, parameters: param)
     }
     func loadData_trueAction(id:String)
     {
         flag = "用章详情通过"
         loadingAnimationMethod.sharedInstance.startAnimation()
         let param = ["flag":"1","bid":id]
-        request.Get(GetService + yongZhangPiFuURL, parameters: param)
+        request2.Get(GetService + yongZhangPiFuURL, parameters: param)
     }
 
     func didResponse(result: NSDictionary) {
         loadingAnimationMethod.sharedInstance.endAnimation()
         
-        if(flag2 == "permission")
-        {
-            flag2 = ""
-            let ary =  result.objectForKey("dt") as? NSArray
-            
-            //考勤审批列表 报销审批列表
-            for(var i = 0;i < ary?.count ;i++)
-            {
-                let dic =  ary?.objectAtIndex(i) as! NSDictionary
-                let name = dic.objectForKey("Menu_Name") as? String
-                if(name == "考勤审批列表")
-                {
-                    selectViewItemArry.addObject("考勤")
-                }else if(name == "报销审批列表"){
-                    selectViewItemArry.addObject("报销")
-                }else if(name == "用章审批列表"){
-                    selectViewItemArry.addObject("用章")
-                }else if(name == "借还款审核列表"){
-                    selectViewItemArry.addObject("借还款")
-                }else if(name == "云资源审核列表"){
-                    selectViewItemArry.addObject("云资源")
-                }else if(name == "项目审核"){
-                    selectViewItemArry.addObject("项目")
-                }else if(name == "合同审核列表"){
-                    selectViewItemArry.addObject("合同")
-                }
-            }
-
-        }
         if(flag == "0")
         {
             

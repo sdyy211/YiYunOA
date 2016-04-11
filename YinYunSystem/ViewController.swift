@@ -107,7 +107,39 @@ class ViewController: UIViewController,HttpProtocol{
             }
         }
         
-        print(result)
+        
+        
+        //处理审核中待审的权限处理
+        let dic = result.objectForKey("values") as! NSDictionary
+        let str = dic.objectForKey("rids") as! String
+        let ary = str.componentsSeparatedByString(",") as NSArray
+        let baoXiaoPermissions = NSMutableArray()
+        "11e2-b7c1-81808260-abf8-5b8974d843b8,310742af-81a6-4761-9bc0-6468028c898c,81cc8dd7-70d3-452a-91ee-12192face90e,11e0-fbb1-2d9446ea-bb6a-776133f77891"
+        for ids in ary
+        {
+            switch(ids as! String){
+                case "11e0-f890-57dfabba-9d52-47c4bc674a35":
+                    baoXiaoPermissions.addObject("部门经理")
+                    break
+                case "11e0-f890-5ca45fbb-9d52-47c4bc674a35":
+                    baoXiaoPermissions.addObject("副总经理")
+                    break
+                case "11e0-fbb1-2d9446ea-bb6a-776133f77891":
+                    baoXiaoPermissions.addObject("员工")
+                    break
+                case "11e0-fbb1-182b03c7-bb6a-776133f77891":
+                    baoXiaoPermissions.addObject("总经理")
+                    break
+                case "11e2-b7c1-81808260-abf8-5b8974d843b8":
+                    baoXiaoPermissions.addObject("总经理助理")
+                    break
+                default:
+                    break
+            }
+        }
+        NSUserDefaults.standardUserDefaults().setObject(baoXiaoPermissions, forKey:"baoXiaoPermissions")
+        
+        //对登陆状态的处理
         let value:NSNumber = result.objectForKey("flag") as! NSNumber
         let index = value.intValue
         if(index == 1)

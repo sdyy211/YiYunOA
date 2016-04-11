@@ -29,7 +29,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="162" id="8s7-7D-HDk"/>
                                         </constraints>
-                                        <state key="normal" title="全部">
+                                        <state key="normal" title="考勤">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>

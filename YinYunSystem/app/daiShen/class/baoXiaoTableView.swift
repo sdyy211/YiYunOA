@@ -13,6 +13,7 @@
 //"会议费": "F67C2ABE-62C0-40DE-BF1A-111046AC413E",
 //"财务费用": "F67C2ABE-62C0-40DE-BF1A-102246AC413E"
 
+
 import UIKit
 
 class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segmentProtocol,HttpProtocol,baoXiaoBottomProtocol,downLoadProtocol{
@@ -42,18 +43,31 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
     var piFuURL = "/mobile/mobile/JShenHeReimburese"
     var rightBtnFlag = ""
     var loadFlag = ""
-    
+    var loadStyleFlag = "2"  // 当待审的时候默认的为2  当已审时为1或0
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
-        initView()
+        
     }
     func initView()
     {
         segmentV = segmentView()
-        segmentV.segmentArray = ["全部","通讯费","差旅费","市内交通费","通用","培训费","会议费"]
+        let ary = NSUserDefaults.standardUserDefaults().objectForKey("baoXiaoPermissions") as! NSArray
+        print(ary)
+        for permissions in ary
+        {
+            print(permissions)
+            if(permissions as! String == "副总经理" || permissions as! String == "总经理助理")
+            {
+                segmentV.segmentArray = ["全部","通讯费","差旅费","市内交通费","通用","培训费","会议费"]
+            }else if(permissions as! String == "总经理")
+            {
+                segmentV.segmentArray = ["全部","通讯费","差旅费","市内交通费","通用","培训费","会议费"]
+            }
+        }
+        
         segmentV.delegate = self
         segmentV.frame = CGRectMake(0,0,CGRectGetWidth(self.frame),40)
         self.addSubview(segmentV)
@@ -67,21 +81,48 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
     }
     func loadData()
     {
-        loadFlag = "0"
-        loadingAnimationMethod.sharedInstance.startAnimation()
-        request.delegate = self
-        let parmer = "zt=2"
-        let str = GetService + url
-        request.Post(str, str: parmer)
+        
+        if(loadStyleFlag == "2")
+        {
+            //待审请求
+            loadFlag = "0"
+            loadingAnimationMethod.sharedInstance.startAnimation()
+            request.delegate = self
+            let parmer = "zt=2"
+            let str = GetService + url
+            request.Post(str, str: parmer)
+
+        }else{
+            //已审请求
+            loadFlag = "0"
+            loadingAnimationMethod.sharedInstance.startAnimation()
+            request.delegate = self
+            let parmer = "zt=-1"
+            let str = GetService + url
+            request.Post(str, str: parmer)
+        }
     }
     func loadData2()
     {
-        loadFlag = "1"
+        
         loadingAnimationMethod.sharedInstance.startAnimation()
-        request.delegate = self
-        let parmer = "bxaid=\(styleId)&zt=2"
-        let str = GetService + detileURL
-        request.Post(str, str: parmer)
+        if(loadStyleFlag == "2")
+        {
+            loadFlag = "1"
+            //获取待审的二级菜单的数据
+            request.delegate = self
+            let parmer = "bxaid=\(styleId)&zt=2"
+            let str = GetService + detileURL
+            request.Post(str, str: parmer)
+        }else{
+            loadFlag = "1"
+            //获取已审二级菜单的数据
+            request.delegate = self
+            let parmer = "bxaid=\(styleId)&zt=-1"
+            let str = GetService + detileURL
+            request.Post(str, str: parmer)
+        }
+        
     }
     func piFuLoadData(piflag:String,id:String)
     {
@@ -111,7 +152,6 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
         }else if(loadFlag == "1"){
             let dic =  result.objectForKey("values") as! NSDictionary
             chongDiArry = result.objectForKey("objs") as! NSMutableArray
-            print(chongDiArry)
             if(dic.allKeys.count > 0)
             {
                 let str = dic.objectForKey("sbudate") as! String
@@ -122,14 +162,12 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
                 let data = jsonStr.dataUsingEncoding(NSUTF8StringEncoding)
                 
                 let jsonArry = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSArray
-                print(jsonArry)
                 detileArry.setArray(jsonArry as [AnyObject])
                 detileArry.removeObjectAtIndex(0)
                 
                 
             }
         }else if(loadFlag == "pifu"){
-            print(result)
             let num = result.objectForKey("flag") as! NSNumber
             let flagindex =  "\(num)"
             if(flagindex == "0")
@@ -147,6 +185,7 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
     }
     override func drawRect(rect: CGRect) {
         // Drawing code
+        initView()
     }
     //MARK:segment 点击改变的函数u
     func getSegmentDidchange(index: String) {
@@ -365,7 +404,6 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
                     {
                        
                          let jintE = chongDi.objectForKey("BC_hongDi") as? String
-                        print(jintE!)
                         if(jintE != nil)
                         {
                             chongDJinE += float_t(jintE!)!
@@ -447,7 +485,6 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
             nsdata.beiZhuTY = dic.objectForKey("备注") as! String
         }else if(styleId == "F67C2ABE-62C0-40DE-BF6A-4A1046AC4F3E" || styleId == "F67C2ABE-62C0-40DE-BF1A-111046AC413E")
         {
-            print(dic.objectForKey("附件") as! String)
             //培训费  会议费
             nsdata.suoShuXiangMuPX = dic.objectForKey("项目名称") as! String
             nsdata.baoXiaoJinEPX = dic.objectForKey("报销金额") as! String
@@ -626,7 +663,6 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
         let arr =  chongDiArry[0] as! NSArray
         for(var i = 0; i < arr.count;i++)
         {
-            print(arr)
             let dic =  arr.objectAtIndex(i) as! NSDictionary
             let bs = dic.objectForKey("BXS_ID") as! String
             
@@ -694,7 +730,6 @@ class baoXiaoTableView: UIView,UITableViewDelegate,UITableViewDataSource,segment
             window?.makeKeyAndVisible()
         }else{
             //文件下载
-            print(downURL)
             downfile = downLoadFile(frame:CGRectMake(0,0,CGRectGetWidth(UIScreen.mainScreen().bounds),CGRectGetHeight(UIScreen.mainScreen().bounds)))
             downfile.url = downURL
             downfile.name = name!
